@@ -52,8 +52,30 @@ Process (CarEW,CarNS,PedEW,PedNS,clock)
 			if (CarEW = '1') then
 				if (LightsNS = GREEN) then
 					LightsNS <= AMBER;
+					if (Counter = AmberCount) then
+						LightsNS <= RED
+						LightsEW <= GREEN
 				if (LightsNS = RED) then
-					LightsEW = GREEN;
+					LightsEW <= GREEN;
 			elsif (PedEW = '1') then
-				LightsNS <= AMBER;
+				if (CarEW = '1') then
+					LightsEW <= WALK;
+				else
+					LightsNS <= RED;
+					LightsEW <= RED;
+			if (CarNS = '1') then
+				if (LightsEW = GREEN) then
+					LightsEW <= AMBER;
+					if (Counter = AmberCount) then
+						LightsEW <= RED
+						LightsNS <= GREEN
+				if (LightsEW = RED) then
+					LightsNS <= GREEN;
+			elsif (PedNS = '1') then
+				if (CarNS = '1') then
+					LightsNS <= WALK;		
+				else
+					LightsNS <= RED;
+					LightsEW <= RED;
+				
 end;
